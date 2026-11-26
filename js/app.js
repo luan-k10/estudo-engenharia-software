@@ -96,10 +96,10 @@
     const erradas = QUESTOES.filter(q => prog[q.id] === 0);
     const nunca = QUESTOES.filter(q => prog[q.id] === undefined);
     const opts = [
-      { nome: "🎲 Todas misturadas", sub: `${QUESTOES.length} questões`, fn: () => startQuiz("Todas", shuffle(QUESTOES)) },
-      { nome: "📚 Todas na ordem dos tópicos", sub: `${QUESTOES.length} questões, na ordem do conteúdo`, fn: () => startQuiz("Ordem dos tópicos", [...QUESTOES]) },
-      { nome: "🆕 Ainda não respondidas", sub: `${nunca.length} questões`, fn: () => nunca.length ? startQuiz("Não respondidas", shuffle(nunca)) : alert("Você já respondeu todas!") },
-      { nome: "🔁 Revisar erradas", sub: `${erradas.length} questões`, fn: () => erradas.length ? startQuiz("Revisão de erradas", shuffle(erradas)) : alert("Nenhuma questão errada para revisar 🎉") },
+      { nome: "Todas misturadas", sub: `${QUESTOES.length} questões`, fn: () => startQuiz("Todas", shuffle(QUESTOES)) },
+      { nome: "Todas na ordem dos tópicos", sub: `${QUESTOES.length} questões, na ordem do conteúdo`, fn: () => startQuiz("Ordem dos tópicos", [...QUESTOES]) },
+      { nome: "Ainda não respondidas", sub: `${nunca.length} questões`, fn: () => nunca.length ? startQuiz("Não respondidas", shuffle(nunca)) : alert("Você já respondeu todas!") },
+      { nome: "Revisar erradas", sub: `${erradas.length} questões`, fn: () => erradas.length ? startQuiz("Revisão de erradas", shuffle(erradas)) : alert("Nenhuma questão errada para revisar") },
       ...Object.entries(TEMAS).map(([k, nome]) => ({ nome, sub: `${QUESTOES.filter(q => q.t === k).length} questões`, fn: () => startQuiz(nome, shuffle(QUESTOES.filter(q => q.t === k))) })),
     ];
     const box = $("#quiz-options");
@@ -124,7 +124,7 @@
     function render() {
       const it = itens[i], q = it.q;
       area.innerHTML = `<div class="card">
-        <div class="qhead"><span><b>${esc(titulo)}</b>${titulo === TEMAS[q.t] ? "" : " · " + esc(TEMAS[q.t])}</span><span id="q-score">Questão ${i + 1}/${itens.length} · ✅ ${acertos}</span></div>
+        <div class="qhead"><span><b>${esc(titulo)}</b>${titulo === TEMAS[q.t] ? "" : " · " + esc(TEMAS[q.t])}</span><span id="q-score">Questão ${i + 1}/${itens.length} · ✓ ${acertos}</span></div>
         <div class="progressline"><div style="width:${(i + 1) * 100 / itens.length}%"></div></div>
         <div class="qtext">${esc(q.q)}</div>
         <div id="opts">${it.ord.map((oi, k) => `<button type="button" class="opt" data-k="${k}"><span class="l">${L[k]})</span><span>${esc(q.o[oi])}</span></button>`).join("")}</div>
@@ -141,7 +141,7 @@
         if (ok) acertos++;
         registrar(q, ok);
         mostrar(k);
-        $("#q-score").textContent = `Questão ${i + 1}/${itens.length} · ✅ ${acertos}`;
+        $("#q-score").textContent = `Questão ${i + 1}/${itens.length} · ✓ ${acertos}`;
       }));
       $("#q-prev").onclick = () => { i--; render(); };
       $("#q-next").onclick = () => { if (i < itens.length - 1) { i++; render(); window.scrollTo(0, 0); } else fim(); };
@@ -155,7 +155,7 @@
         else if (j === k) b.classList.add("wrong");
       });
       const ok = k === it.correta;
-      $("#explic").innerHTML = `<div class="explic ${ok ? "" : "bad"}"><b>${ok ? "✅ Correto!" : `❌ Resposta certa: ${L[it.correta]}`}</b><br>${esc(it.q.e)}</div>`;
+      $("#explic").innerHTML = `<div class="explic ${ok ? "" : "bad"}"><b>${ok ? "✓ Correto!" : `✗ Resposta certa: ${L[it.correta]}`}</b><br>${esc(it.q.e)}</div>`;
     }
     function fim() {
       const n = resp.filter(r => r !== null).length;
@@ -188,13 +188,13 @@
     area.classList.remove("hidden");
     const tempo = () => { const s = Math.floor((Date.now() - t0) / 1000); return `${String(Math.floor(s / 60)).padStart(2, "0")}:${String(s % 60).padStart(2, "0")}`; };
     clearInterval(simTimer);
-    simTimer = setInterval(() => { const el = $("#sim-time"); if (el) el.textContent = "⏱ " + tempo(); }, 1000);
+    simTimer = setInterval(() => { const el = $("#sim-time"); if (el) el.textContent = tempo(); }, 1000);
 
     function render() {
       const it = itens[i];
       const respondidas = resp.filter(r => r !== null).length;
       area.innerHTML = `<div class="card">
-        <div class="qhead"><span>Simulado · Questão ${i + 1}/${itens.length} · respondidas ${respondidas}</span><span id="sim-time">⏱ ${tempo()}</span></div>
+        <div class="qhead"><span>Simulado · Questão ${i + 1}/${itens.length} · respondidas ${respondidas}</span><span id="sim-time">${tempo()}</span></div>
         <div class="progressline"><div style="width:${respondidas * 100 / itens.length}%"></div></div>
         <div class="qtext">${esc(it.q.q)}</div>
         <div id="s-opts">${it.ord.map((oi, k) => `<button type="button" class="opt ${resp[i] === k ? "sel" : ""}" data-k="${k}"><span class="l">${L[k]})</span><span>${esc(it.q.o[oi])}</span></button>`).join("")}</div>
@@ -233,7 +233,7 @@
         <button type="button" class="btn btn-primary" id="s-new">Novo simulado</button></div>
         <div class="card"><h3 style="margin-top:0">Correção</h3>${itens.map((it, k) => {
           const r = resp[k], ok = r === it.correta;
-          return `<div class="review-item"><b class="${ok ? "ok" : "bad"}">${ok ? "✅" : "❌"} ${k + 1}.</b> ${esc(it.q.q)}<br>
+          return `<div class="review-item"><b class="${ok ? "ok" : "bad"}">${ok ? "✓" : "✗"} ${k + 1}.</b> ${esc(it.q.q)}<br>
             ${r === null ? `<span class="bad">Não respondida.</span><br>` : ok ? "" : `<span class="bad">Sua: ${esc(it.q.o[it.ord[r]])}</span><br>`}
             <span class="ok">Certa: ${esc(it.q.o[0])}</span><br><span class="muted">${esc(it.q.e)}</span></div>`;
         }).join("")}</div>`;

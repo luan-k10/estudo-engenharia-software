@@ -102,7 +102,7 @@
       $("#tr-q").textContent = `Você acertou ${acertos} de ${feitas}.`;
       $("#tr-opts").innerHTML = "";
       $("#tr-explic").innerHTML = "";
-      const nx = $("#tr-next"); nx.textContent = "🔁 Recomeçar"; nx.classList.remove("hidden");
+      const nx = $("#tr-next"); nx.textContent = "Recomeçar"; nx.classList.remove("hidden");
       return;
     }
     const it = fila[pos];
@@ -122,7 +122,7 @@
       b.disabled = true;
       if (j === it[1]) b.classList.add("correct"); else if (j === k) b.classList.add("wrong");
     });
-    $("#tr-explic").innerHTML = `<div class="explic ${ok ? "" : "bad"}"><b>${ok ? "✅ Certo!" : "❌ Resposta: " + esc(SETS[set].ops[it[1]])}</b> ${esc(it[2])}</div>`;
+    $("#tr-explic").innerHTML = `<div class="explic ${ok ? "" : "bad"}"><b>${ok ? "✓ Certo!" : "✗ Resposta: " + esc(SETS[set].ops[it[1]])}</b> ${esc(it[2])}</div>`;
     $("#tr-score").textContent = `Acertos: ${acertos}/${feitas}`;
     $("#tr-next").classList.remove("hidden");
   }
