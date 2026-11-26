@@ -1,0 +1,614 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Estudo Eng. Software · Engenharia de Software</title>
+  <meta name="description" content="Resumos, comparativos, quiz, simulado, flashcards, discursivas e treino rápido de Engenharia de Software: fundamentos, ciclos de vida, requisitos e UML, Scrum/XP/Kanban, arquiteturas (MVC, MVVM, Hexagonal, Clean) e TDD.">
+  <meta name="author" content="Luan Kairo de Souza das Neves">
+  <meta name="theme-color" content="#6e1423">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%236e1423'/%3E%3Cpath fill='%23fff' d='M14.41 10 L17.52 10 L17.52 50.89 L42.49 50.89 L27 34.11 L29.29 32 L49.59 54 L14.41 54 Z M42.57 10 L46.88 10 L20.58 37.32 L20.58 32.84 Z'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="css/style.css">
+  <script>
+    (() => {
+      let t = null;
+      try { t = localStorage.getItem('theme'); } catch (e) {}
+      document.documentElement.dataset.theme = t || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    })();
+  </script>
+</head>
+<body>
+<header class="header">
+  <nav class="container topbar" aria-label="Principal">
+    <a class="brand" href="#" data-go="inicio">
+      <svg class="mark" viewBox="0 0 64 64" width="28" height="28" aria-hidden="true">
+        <rect width="64" height="64" rx="12"/>
+        <path d="M14.41 10 L17.52 10 L17.52 50.89 L42.49 50.89 L27 34.11 L29.29 32 L49.59 54 L14.41 54 Z M42.57 10 L46.88 10 L20.58 37.32 L20.58 32.84 Z"/>
+      </svg>
+      <span>Estudo Eng. Software</span>
+    </a>
+    <ul class="menu" id="nav">
+      <li><a class="menu-home" href="/estudos/engenharia/" title="Outras matérias de Engenharia">← Matérias</a></li>
+      <li><button data-view="inicio" class="active">Início</button></li>
+      <li><button data-view="resumos">Resumos</button></li>
+      <li><button data-view="compare">Comparativos</button></li>
+      <li><button data-view="quiz">Quiz</button></li>
+      <li><button data-view="simulado">Simulado</button></li>
+      <li><button data-view="flash">Flashcards</button></li>
+      <li><button data-view="disc">Discursivas</button></li>
+      <li><button data-view="treino">Treino rápido</button></li>
+    </ul>
+    <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Alternar modo escuro" title="Alternar tema">
+      <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+      <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    </button>
+  </nav>
+</header>
+
+<main class="container">
+
+<!-- ======================= INÍCIO ======================= -->
+<section class="view active" id="view-inicio">
+  <div class="hero">
+    <p class="eyebrow">Material de estudo · Prof. Jacques Oliveira</p>
+    <h1>Engenharia de <em>Software</em></h1>
+    <p class="lead">Os 5 materiais em um só lugar: resumos diretos, tabelas comparativas, questões com explicação, simulado cronometrado, flashcards, discursivas com resposta-modelo (incluindo um exemplo completo do trabalho) e um treino rápido de classificação.</p>
+    <ul class="tags">
+      <li class="tag">Princípios de Hooker</li><li class="tag">Ciclos de vida</li><li class="tag">RF × RNF</li>
+      <li class="tag">UML</li><li class="tag">Scrum · XP</li><li class="tag">MVC · MVVM · Clean</li><li class="tag">TDD</li>
+    </ul>
+    <div class="actions">
+      <button class="btn btn-primary" data-go="resumos">📖 Começar pelos resumos</button>
+      <button class="btn" data-go="treino">⚡ Treino rápido</button>
+      <button class="btn" data-go="disc">📝 Ajuda no trabalho</button>
+    </div>
+  </div>
+
+  <h2 class="section-title">Seu progresso</h2>
+  <div class="stats">
+    <div class="card stat"><b id="st-total">0</b><span>respondidas</span></div>
+    <div class="card stat"><b id="st-acerto">0%</b><span>de acerto</span></div>
+    <div class="card stat"><b id="st-erradas">0</b><span>para revisar</span></div>
+  </div>
+  <div class="card">
+    <div id="progresso-temas"></div>
+    <p class="small muted" style="margin-top:.8rem">O progresso fica salvo só neste navegador. <button class="btn btn-sm" id="btn-reset" type="button">Zerar progresso</button></p>
+  </div>
+
+  <h2 class="section-title" style="margin-top:2rem">Como estudar (roteiro rápido)</h2>
+  <div class="card">
+    <ol>
+      <li><b>Leia o resumo</b> de cada tópico (≈8 min cada). Atenção aos quadros <b>⚠️ Pegadinha</b>.</li>
+      <li>Revise os <b>comparativos</b>: modelos de ciclo de vida e arquiteturas caem em forma de tabela.</li>
+      <li>Faça o <b>quiz por tópico</b> logo depois de ler o resumo dele.</li>
+      <li>Use o <b>treino rápido</b> para fixar RF × RNF, papéis do Scrum e tipos de teste.</li>
+      <li>Escreva as <b>discursivas</b> no papel e termine com um <b>simulado</b>.</li>
+    </ol>
+  </div>
+
+  <div class="grid" style="margin-top:1rem">
+    <button class="card feature" data-go="resumos"><span class="ico">📖</span><b>Resumos</b><span>6 tópicos com tabelas, exemplos e pegadinhas.</span></button>
+    <button class="card feature" data-go="compare"><span class="ico">📊</span><b>Comparativos</b><span>Modelos, arquiteturas, Scrum × XP × Kanban, testes.</span></button>
+    <button class="card feature" data-go="quiz"><span class="ico">🎯</span><b>Quiz</b><span>Questões objetivas com explicação na hora.</span></button>
+    <button class="card feature" data-go="simulado"><span class="ico">⏱</span><b>Simulado</b><span>Prova cronometrada com nota e correção.</span></button>
+    <button class="card feature" data-go="flash"><span class="ico">🃏</span><b>Flashcards</b><span>Revisão rápida de definições.</span></button>
+    <button class="card feature" data-go="disc"><span class="ico">✍️</span><b>Discursivas</b><span>Respostas-modelo e exemplo do trabalho (Biblioteca).</span></button>
+    <button class="card feature" data-go="treino"><span class="ico">⚡</span><b>Treino rápido</b><span>Classifique frases: RF/RNF, papéis, testes, arquiteturas.</span></button>
+  </div>
+</section>
+
+<!-- ======================= RESUMOS ======================= -->
+<section class="view" id="view-resumos">
+  <h2 class="section-title">Resumos por tópico</h2>
+  <p class="lead">Toque em um tópico para abrir. Tabelas largas viram cartões no celular.</p>
+  <nav class="week-index" aria-label="Tópicos">
+    <a href="#t1" data-week="t1">Tópico 1<small>Fundamentos e princípios</small></a>
+    <a href="#t2" data-week="t2">Tópico 2<small>Modelos de ciclo de vida</small></a>
+    <a href="#t3" data-week="t3">Tópico 3<small>Requisitos, UML e especificação</small></a>
+    <a href="#t4" data-week="t4">Tópico 4<small>Métodos ágeis</small></a>
+    <a href="#t5" data-week="t5">Tópico 5<small>Arquiteturas de software</small></a>
+    <a href="#t6" data-week="t6">Tópico 6<small>Testes e TDD</small></a>
+  </nav>
+
+  <!-- ---------- TÓPICO 1 ---------- -->
+  <details class="card week" id="t1">
+    <summary><span class="num">1</span><span class="ttl"><b>Fundamentos e princípios</b><small>Definição IEEE, camadas, essência da prática, 7 princípios de Hooker, processo e o caso Winburg</small></span></summary>
+    <div class="week-body">
+      <div class="callout"><span class="ct">💡 Ideia central</span>Engenharia de software é tratar software como engenharia: com <b>processo</b>, <b>disciplina</b> e <b>medição</b>, sempre com o <b>foco na qualidade</b> como base.</div>
+
+      <h3>Definição (IEEE)</h3>
+      <p>“A aplicação de uma abordagem <b>sistemática, disciplinada e quantificável</b> no desenvolvimento, na operação e na manutenção de software; isto é, a aplicação de engenharia ao software.”</p>
+
+      <h3>Visão em camadas</h3>
+      <div class="flow"><span>Foco na qualidade</span><i>→</i><span>Processo</span><i>→</i><span>Métodos</span><i>→</i><span>Ferramentas</span></div>
+      <p>A <b>qualidade</b> é a pedra fundamental. O <b>processo</b> é a “liga” que mantém as camadas coesas e permite desenvolver de forma racional e no prazo.</p>
+
+      <h3>Essência da prática</h3>
+      <div class="table-wrap"><table class="stack">
+        <thead><tr><th>Passo</th><th>Corresponde a</th></tr></thead>
+        <tbody>
+          <tr><td>1. Compreender o problema</td><td>Comunicação e análise</td></tr>
+          <tr><td>2. Planejar uma solução</td><td>Modelagem e projeto de software</td></tr>
+          <tr><td>3. Executar o plano</td><td>Geração de código</td></tr>
+          <tr><td>4. Examinar o resultado</td><td>Testes e garantia da qualidade</td></tr>
+        </tbody>
+      </table></div>
+
+      <h3>Os 7 princípios de Hooker</h3>
+      <div class="table-wrap"><table class="stack">
+        <thead><tr><th>Princípio</th><th>Em uma frase</th></tr></thead>
+        <tbody>
+          <tr><td>1. A razão de existir</td><td>O software existe para <b>agregar valor</b> ao usuário. “Isso agrega valor real?” Se não, não faça. <b>Base de todos.</b></td></tr>
+          <tr><td>2. KISS</td><td>Keep It Simple, Stupid: o mais simples possível, <b>mas não simplista</b>.</td></tr>
+          <tr><td>3. Mantenha a visão</td><td>Integridade conceitual; sem “colcha de retalhos”.</td></tr>
+          <tr><td>4. O que um produz, outros consomem</td><td>Alguém vai ler, manter e depurar o que você fez.</td></tr>
+          <tr><td>5. Esteja aberto para o futuro</td><td>Tudo muda em meses; pergunte sempre “e se…?”.</td></tr>
+          <tr><td>6. Planeje a reutilização</td><td>Reduz custo e aumenta valor; é a <b>meta mais difícil</b>.</td></tr>
+          <tr><td>7. Pense!</td><td>Pensar antes de agir; reconhecer quando não se sabe algo.</td></tr>
+        </tbody>
+      </table></div>
+
+      <h3>Processo de software</h3>
+      <p>Conjunto estruturado de atividades e práticas para desenvolver, manter e entregar software. Define <b>como</b> o trabalho será feito, <b>quem</b> fará, <b>quando</b> e com <b>quais recursos</b>. Dá estabilidade, controle e organização. O processo certo depende do produto: um software de avião não segue o mesmo processo de um app ou de um videogame.</p>
+      <p>Todo projeto nasce de uma <b>necessidade de negócio</b>: corrigir um defeito, adaptar um sistema legado, ampliar funções ou criar um novo produto.</p>
+
+      <h3>Miniestudo de caso: Winburg</h3>
+      <p>Ônibus com máquina que aceita só cédulas de $1, validadas por reconhecimento de imagem. Requisitos: <b>precisão ≥ 98%</b> e <b>resposta &lt; 1 s</b>.</p>
+      <ul>
+        <li><b>Falso positivo</b> (aceitar papel falso) → perda de receita.</li>
+        <li><b>Falso negativo</b> (recusar cédula válida) → afasta usuários.</li>
+        <li>Fracasso: precisão abaixo de 98%, validação lenta (filas), <b>RNF críticos ignorados</b>, <b>falta de testes rigorosos</b> e desprezo pela experiência do usuário.</li>
+      </ul>
+      <div class="callout warn"><span class="ct">⚠️ Pegadinha</span>O sistema de Winburg “funcionava” (o RF de aceitar cédulas existia). Quem derrubou o projeto foram os <b>requisitos não funcionais</b>: precisão e tempo de resposta.</div>
+      <div class="week-foot"><button class="btn btn-primary practice" data-tema="fu">🎯 Praticar Tópico 1</button></div>
+    </div>
+  </details>
+
+  <!-- ---------- TÓPICO 2 ---------- -->
+  <details class="card week" id="t2">
+    <summary><span class="num">2</span><span class="ttl"><b>Modelos de ciclo de vida</b><small>Prescritivos × ágeis, cascata, V, incremental, espiral, prototipagem, RAD, software aberto e sincronizar-e-estabilizar</small></span></summary>
+    <div class="week-body">
+      <div class="callout"><span class="ct">💡 Ideia central</span>Modelos de processo existem para <b>organizar, orientar e sistematizar</b> o desenvolvimento: estruturam o trabalho, facilitam planejamento e controle, <b>reduzem riscos</b>, melhoram a comunicação e se adaptam a contextos diferentes.</div>
+
+      <h3>Prescritivos × ágeis</h3>
+      <ul>
+        <li><b>Prescritivos</b> (tradicionais ou clássicos): ordenados e sequenciais; prescrevem atividades, artefatos e controles. Ex.: cascata, incremental, evolucionários (espiral, prototipação), Modelo V, RAD.</li>
+        <li><b>Ágeis</b>: alternativa baseada no Manifesto Ágil; adaptabilidade, colaboração com o cliente e entrega contínua. Ex.: Scrum, Kanban, XP.</li>
+      </ul>
+
+      <h3>Cascata (sequencial linear)</h3>
+      <div class="flow"><span>Requisitos</span><i>→</i><span>Projeto</span><i>→</i><span>Implementação</span><i>→</i><span>Teste</span><i>→</i><span>Implantação</span></div>
+      <p>Cada fase depende da conclusão da anterior. Usar quando os requisitos são <b>bem compreendidos e estáveis</b>, com pouca mudança e muita necessidade de documentação.</p>
+      <div class="pc"><div class="callout ok"><span class="ct">✅ Pontos fortes</span><ul><li>Rigor e disciplina (documentação e verificação por fase)</li><li>Facilidade de gestão</li><li>Controle de qualidade por fase (SQA)</li><li>Previsibilidade (ambientes regulados)</li></ul></div><div class="callout warn"><span class="ct">⚠️ Pontos fracos</span><ul><li>Pouca flexibilidade a mudanças</li><li>Dependência de documentação que o cliente não entende</li><li><b>Validação tardia</b>: o cliente só vê o produto no fim</li><li>Risco de não atender às expectativas reais</li></ul></div></div>
+
+      <h3>Outros modelos prescritivos</h3>
+      <div class="table-wrap"><table class="stack">
+        <thead><tr><th>Modelo</th><th>Característica principal</th><th>Vantagem</th></tr></thead>
+        <tbody>
+          <tr><td>Cascata</td><td>Sequencial e rígido</td><td>Simples de entender</td></tr>
+          <tr><td>Cascata com retorno / Modelo V</td><td>Permite revisões; cada fase tem um teste correspondente (V&amp;V)</td><td>Corrige falhas de planejamento</td></tr>
+          <tr><td>Incremental</td><td>Entregas parciais (cascata aplicado de forma iterativa)</td><td>Feedback rápido</td></tr>
+          <tr><td>Espiral</td><td>Ciclos com <b>análise de riscos</b> antes de cada fase</td><td>Ótimo para projetos complexos</td></tr>
+          <tr><td>RAD</td><td>Foco em velocidade e protótipos</td><td>Entregas rápidas</td></tr>
+          <tr><td>Prototipagem rápida</td><td>Protótipo validado pelo cliente antes da especificação</td><td>Especificação mais correta</td></tr>
+        </tbody>
+      </table></div>
+
+      <h3>Prototipagem rápida</h3>
+      <p>Protótipo rápido = modelo <b>operacional</b> funcionalmente equivalente a um <b>subconjunto</b> do produto. Ex.: para contas a pagar/receber e estoque, ele captura dados na tela e imprime relatórios, mas não atualiza arquivos nem trata erros. O cliente experimenta; quando estiver satisfeito, a equipe escreve a especificação. Resultado: menos “voltas” de realimentação que no cascata.</p>
+
+      <h3>Espiral</h3>
+      <p>É como um cascata em que <b>cada fase é precedida por análise de riscos</b> (às vezes com protótipo). Se um risco significativo não puder ser minimizado, o projeto é <b>encerrado</b> ou segue em escala menor. <b>Dimensão radial = custo acumulado</b>; <b>dimensão angular = progresso</b>. Cada ciclo = uma fase, começando pelos objetivos, alternativas e restrições. Em 25 projetos, a produtividade subiu ≥ 50% (100% na maioria).</p>
+
+      <h3>Software aberto (open source)</h3>
+      <ol>
+        <li><b>Fase 1</b>: uma pessoa tem a ideia (Linux, Firefox, Apache), constrói uma versão inicial e distribui de graça.</li>
+        <li><b>Fase 2</b>: com interesse, usuários viram <b>codesenvolvedores</b>: relatam defeitos, propõem correções, estendem e portam o programa.</li>
+      </ol>
+      <p>Trabalho <b>voluntário</b>; um <b>grupo central</b> de mantenedores gerencia e garante as correções; o <b>grupo periférico</b> relata defeitos de vez em quando. Tem em comum com <b>codificar-e-corrigir</b> e <b>prototipagem</b> o fato de gerar logo uma versão operacional.</p>
+      <div class="table-wrap"><table class="stack">
+        <thead><tr><th>Manutenção</th><th>O que é</th></tr></thead>
+        <tbody>
+          <tr><td>Corretiva</td><td>Relatar e corrigir defeitos</td></tr>
+          <tr><td>De aperfeiçoamento</td><td>Acrescentar funcionalidade</td></tr>
+          <tr><td>Adaptativa</td><td>Portar para um novo ambiente</td></tr>
+        </tbody>
+      </table></div>
+
+      <h3>Sincronizar-e-estabilizar (Microsoft)</h3>
+      <p>Versão do iterativo-incremental usada pela Microsoft (Cusumano e Selby, 1997). Entrevistas com futuros clientes → lista de recursos prioritários → especificação → <b>3 ou 4 incorporações</b> (a 1ª com os recursos mais fundamentais).</p>
+      <ul>
+        <li><b>Desenvolvimento paralelo</b>: pequenas equipes em módulos diferentes ao mesmo tempo.</li>
+        <li><b>Sincronização frequente</b>: no fim de cada dia, juntam os componentes, testam e depuram.</li>
+        <li><b>Estabilização periódica</b>: no fim de cada incorporação, corrigem as falhas e <b>congelam</b> a incorporação.</li>
+      </ul>
+      <div class="callout warn"><span class="ct">⚠️ Pegadinha</span>Espiral = <b>riscos</b>. Modelo V = <b>verificação e validação</b>. Incremental = <b>entregas em partes</b>. Não confunda os três.</div>
+      <div class="week-foot"><button class="btn btn-primary practice" data-tema="ci">🎯 Praticar Tópico 2</button><button class="btn" data-go="compare">📊 Ver comparativo</button></div>
+    </div>
+  </details>
+
+  <!-- ---------- TÓPICO 3 ---------- -->
+  <details class="card week" id="t3">
+    <summary><span class="num">3</span><span class="ttl"><b>Requisitos, UML e especificação</b><small>Levantamento × análise, modelo de negócio, entrevistas, caso de uso, documento de especificação, RF × RNF</small></span></summary>
+    <div class="week-body">
+      <div class="callout"><span class="ct">💡 Ideia central</span>O objetivo real do levantamento é <b>determinar qual software o cliente precisa</b>. Começa pelo domínio, passa pelo modelo de negócio e é refinado por iteração.</div>
+
+      <h3>Fluxo de levantamento</h3>
+      <div class="flow"><span>Conhecer o campo de aplicação</span><i>→</i><span>Modelo de negócio (UML)</span><i>→</i><span>Necessidades preliminares</span><i>→</i><span>Refinar (iterar)</span></div>
+      <ul>
+        <li><b>Levantamento</b> (ou captura) de necessidades: descobrir o conjunto preliminar.</li>
+        <li><b>Análise</b> de necessidades/requisitos: refinar e estender esse conjunto.</li>
+        <li><b>Modelo de negócio</b>: descrição dos processos de negócio da organização (ex.: banco: depósitos, empréstimos, investimentos). Dá a visão do negócio como um todo.</li>
+      </ul>
+
+      <h3>Técnicas</h3>
+      <div class="table-wrap"><table class="stack">
+        <thead><tr><th>Técnica</th><th>Como funciona</th></tr></thead>
+        <tbody>
+          <tr><td>Entrevista estruturada</td><td>Perguntas específicas, planejadas com antecedência, normalmente <b>fechadas</b>.</td></tr>
+          <tr><td>Entrevista livre</td><td>Começa com 1–2 perguntas; as seguintes surgem das respostas.</td></tr>
+          <tr><td>Observação direta</td><td>A equipe observa e anota os funcionários trabalhando.</td></tr>
+          <tr><td>Vídeo</td><td>Câmeras no escritório, com <b>autorização por escrito</b>.</td></tr>
+          <tr><td>Relatório</td><td>Escrito após a entrevista, com <b>cópia para o entrevistado</b>.</td></tr>
+        </tbody>
+      </table></div>
+
+      <h3>Diagramas UML</h3>
+      <p>Ferramentas de modelagem visual da estrutura, do comportamento e da funcionalidade. <b>Vantagens</b>: simplificam a complexidade, melhoram a comunicação (inclusive com não técnicos), ajudam no design antes de implementar, documentam e apoiam análise e planejamento.</p>
+      <p><b>Caso de uso</b> (exemplo bancário): atores <b>Customer</b> (cliente) e <b>Teller</b> (caixa) — bonecos de palito — e a oval <b>Withdraw Money</b> (saque). O <b>ator</b> é externo ao produto e desempenha um papel; o <b>retângulo</b> é o produto de software.</p>
+
+      <h3>Documento de especificação</h3>
+      <p>É um <b>contrato</b> entre cliente e desenvolvedor: diz precisamente o que o produto deve fazer e suas restrições. Parte vital: os <b>critérios de aceitação</b>, testes que provam que o produto atende à especificação e que o trabalho está feito.</p>
+
+      <h3>RF × RNF</h3>
+      <div class="table-wrap"><table class="stack">
+        <thead><tr><th>Tipo</th><th>Pergunta</th><th>Exemplos da aula</th></tr></thead>
+        <tbody>
+          <tr><td><b>Funcional</b></td><td>O QUE o sistema faz</td><td>Login com usuário e senha · cadastro (CRUD) de clientes · pagamento com cartão · pesquisa com filtro · histórico de pedidos</td></tr>
+          <tr><td><b>Não funcional</b></td><td>COMO faz (qualidade e restrições)</td><td>Ver a tabela abaixo</td></tr>
+        </tbody>
+      </table></div>
+      <div class="table-wrap"><table class="stack">
+        <thead><tr><th>RNF</th><th>Exemplo</th></tr></thead>
+        <tbody>
+          <tr><td>Desempenho</td><td>Transação em &lt; 3 s; página principal em ≤ 1 s</td></tr>
+          <tr><td>Usabilidade</td><td>Fácil para iniciantes; mensagens de erro claras</td></tr>
+          <tr><td>Segurança</td><td>Senhas criptografadas; só autorizados acessam dados sensíveis</td></tr>
+          <tr><td>Confiabilidade</td><td>Disponível 99,9% do tempo; sem perda de dados em queda de energia</td></tr>
+          <tr><td>Escalabilidade</td><td>1.000 usuários simultâneos; adicionar servidores</td></tr>
+          <tr><td>Portabilidade</td><td>Android e iOS recentes; vários navegadores</td></tr>
+        </tbody>
+      </table></div>
+      <div class="callout warn"><span class="ct">⚠️ Pegadinha</span>“O sistema deve permitir login” é <b>RF</b>. “As senhas devem ser criptografadas” é <b>RNF</b> (segurança). A mesma funcionalidade pode ter os dois tipos.</div>
+      <div class="week-foot"><button class="btn btn-primary practice" data-tema="rq">🎯 Praticar Tópico 3</button><button class="btn" data-go="treino">⚡ Treinar RF × RNF</button></div>
+    </div>
+  </details>
+
+  <!-- ---------- TÓPICO 4 ---------- -->
+  <details class="card week" id="t4">
+    <summary><span class="num">4</span><span class="ttl"><b>Métodos ágeis</b><small>Filosofia, agilidade, processo ágil, Scrum (papéis, artefatos, eventos), XP e Kanban</small></span></summary>
+    <div class="week-body">
+      <div class="callout"><span class="ct">💡 Ideia central</span>Ágil = <b>filosofia + princípios</b>: satisfação do cliente, entrega incremental antecipada, equipes pequenas e motivadas, métodos informais, artefatos mínimos e <b>simplicidade</b>. A <b>entrega</b> tem prioridade sobre análise e projeto.</div>
+
+      <h3>Perguntas-chave</h3>
+      <div class="table-wrap"><table class="stack">
+        <thead><tr><th>Pergunta</th><th>Resposta</th></tr></thead>
+        <tbody>
+          <tr><td>Quem realiza?</td><td>Uma equipe ágil <b>auto-organizada</b> (engenheiros, gerentes, clientes, usuários).</td></tr>
+          <tr><td>Por que é importante?</td><td>Ambientes mudam rápido; o ágil entrega sistemas corretos rapidamente.</td></tr>
+          <tr><td>Quais etapas?</td><td>“Engenharia de software <b>light</b>”: comunicação, planejamento, modelagem, construção e entrega, como tarefas mínimas.</td></tr>
+          <tr><td>Qual o artefato?</td><td>Um <b>incremento de software operacional</b>. Documentos: histórias de usuário e casos de teste.</td></tr>
+          <tr><td>Como saber se está certo?</td><td>A equipe concorda que o processo funciona e entrega incrementos que satisfazem o cliente.</td></tr>
+        </tbody>
+      </table></div>
+      <p><b>Agilidade</b> não é só rapidez: é adaptar-se às mudanças entregando valor contínuo e mantendo a qualidade. Envolve <b>velocidade, adaptação, qualidade e colaboração</b>. Processo ágil: <b>iterativo e incremental</b>, flexível a mudanças (bem-vindas até no fim), foco no cliente, colaboração (dailies), entrega contínua de valor e melhoria contínua.</p>
+
+      <h3>Scrum</h3>
+      <div class="flow"><span>Backlog do produto</span><i>→</i><span>Sprint Planning</span><i>→</i><span>Backlog do sprint</span><i>→</i><span>Sprint (2–4 sem.) + Daily</span><i>→</i><span>Incremento</span><i>→</i><span>Retrospectiva</span></div>
+      <div class="table-wrap"><table class="stack">
+        <thead><tr><th>Papel</th><th>Responsabilidades</th></tr></thead>
+        <tbody>
+          <tr><td>Product Owner</td><td>Prioriza o backlog do produto, define a <b>meta do sprint</b>, é o <b>único que encerra ou estende o sprint</b>.</td></tr>
+          <tr><td>Scrum Master</td><td>Facilitador: conduz a daily, <b>remove obstáculos</b>, orienta a equipe, ajuda o PO com o backlog, lidera a retrospectiva.</td></tr>
+          <tr><td>Equipe de desenvolvimento (3–6)</td><td>Define como fazer e quando o incremento está pronto. <b>Não adiciona tarefas</b> sem cancelar/reiniciar o sprint.</td></tr>
+        </tbody>
+      </table></div>
+      <div class="table-wrap"><table class="stack">
+        <thead><tr><th>Evento</th><th>Detalhes</th></tr></thead>
+        <tbody>
+          <tr><td>Sprint Planning</td><td>Todos. PO e devs organizam o backlog por importância/complexidade; PO define a meta; SM e devs escolhem os itens do backlog do sprint.</td></tr>
+          <tr><td>Daily Scrum</td><td><b>15 min</b>, início do dia. Obrigatórios: SM e devs (PO às vezes). 3 perguntas: o que fiz? que obstáculos tenho? o que farei?</td></tr>
+          <tr><td>Retrospectiva</td><td>Até <b>3 h</b> (sprint de 4 semanas), antes do próximo planning. SM e devs: o que deu certo, o que melhorar, compromisso.</td></tr>
+        </tbody>
+      </table></div>
+      <p><b>Backlog do produto</b>: lista priorizada do que agrega valor; nunca está completo. <b>Backlog do sprint</b>: itens escolhidos para o sprint atual. <b>Incremento</b>: código funcional entregue.</p>
+
+      <h3>XP (Extreme Programming)</h3>
+      <div class="table-wrap"><table class="stack">
+        <thead><tr><th>Atividade</th><th>Práticas</th></tr></thead>
+        <tbody>
+          <tr><td>Planejamento</td><td>Cliente escreve <b>histórias de usuário</b> priorizadas por valor; equipe dá custo em semanas; após cada versão calcula a <b>velocidade</b>.</td></tr>
+          <tr><td>Projeto</td><td><b>KISS</b>, <b>cartões CRC</b>, protótipos para problemas complexos, <b>refatoração</b> contínua.</td></tr>
+          <tr><td>Codificação</td><td>Testes de unidade <b>antes</b> do código (TDD), <b>programação em pares</b>, <b>integração contínua</b>.</td></tr>
+          <tr><td>Testes</td><td>Testes de unidade automatizados (regressão) e <b>testes de aceitação definidos pelo cliente</b>.</td></tr>
+        </tbody>
+      </table></div>
+
+      <h3>Kanban</h3>
+      <p>Sistema <b>visual</b>: as tarefas são cartões que se movem pelas colunas de um quadro (A fazer → Em andamento → Em teste → Feito).</p>
+      <div class="callout warn"><span class="ct">⚠️ Pegadinha</span>Quem encerra o sprint é o <b>PO</b>, não o Scrum Master. E as 3 perguntas “deu certo / melhorar / compromisso” são da <b>retrospectiva</b>, não da daily. (A apostila cita sprints de 2–4 semanas e, em outro slide, 3–4; na dúvida, 2–4.)</div>
+      <div class="week-foot"><button class="btn btn-primary practice" data-tema="ag">🎯 Praticar Tópico 4</button></div>
+    </div>
+  </details>
+
+  <!-- ---------- TÓPICO 5 ---------- -->
+  <details class="card week" id="t5">
+    <summary><span class="num">5</span><span class="ttl"><b>Arquiteturas de software</b><small>MVC, MVVM, Hexagonal (Ports and Adapters) e Clean Architecture</small></span></summary>
+    <div class="week-body">
+      <div class="callout"><span class="ct">💡 Ideia central</span>Todas separam responsabilidades. Quanto mais para a direita (MVC → MVVM → Hexagonal → Clean), mais <b>desacoplamento e testabilidade</b> — e mais <b>custo inicial</b>.</div>
+
+      <h3>MVC — Model, View, Controller</h3>
+      <ul>
+        <li><b>Model</b>: regras de negócio e acesso a dados · <b>View</b>: interface · <b>Controller</b>: recebe requisições, interpreta e coordena Model e View.</li>
+        <li>Resolve: mistura de lógica de negócio com interface; facilita manutenção da UI e trabalho em equipes.</li>
+        <li>Onde: web tradicional (páginas renderizadas no servidor), desktop simples, fluxo requisição → resposta.</li>
+        <li>Tecnologias: Django, Ruby on Rails, Laravel, ASP.NET MVC, Spring MVC; Java Swing/SWT, Windows Forms.</li>
+        <li>✅ Separação clara, fácil de ensinar, frameworks maduros, Models reutilizados em várias Views. ❌ <b>God Controllers</b>, não escala para UIs muito ricas, perdeu espaço no front com as SPAs.</li>
+      </ul>
+
+      <h3>MVVM — Model, View, ViewModel</h3>
+      <ul>
+        <li>Evolução do MVC/MVP para UIs reativas. <b>ViewModel</b> expõe dados e eventos reativos à View via <b>data binding</b>.</li>
+        <li>Resolve: desacopla a UI do código, deixa a View declarativa, reduz código de sincronização.</li>
+        <li>Onde: UIs complexas e interativas, apps mobile, formulários dinâmicos.</li>
+        <li>Tecnologias: Angular, Vue, Knockout; Android ViewModel, SwiftUI; WPF, WinUI, Avalonia; Flutter (Provider, Riverpod, MobX).</li>
+        <li>✅ View simples, <b>alta testabilidade</b>, menos boilerplate. ❌ Curva para iniciantes, <b>binding dificulta a depuração</b>, ViewModels gigantes.</li>
+      </ul>
+
+      <h3>Hexagonal — Ports and Adapters</h3>
+      <div class="flow"><span>Adapters (BD, API, UI)</span><i>⇄</i><span>Ports (interfaces)</span><i>⇄</i><span>Core / domínio</span></div>
+      <ul>
+        <li>Separa o núcleo das interfaces externas. <b>Ports</b> = interfaces que o domínio expõe ou precisa. <b>Adapters</b> = implementações que ligam ao mundo externo.</li>
+        <li>Baseada em <b>desacoplamento forte e inversão de dependência</b>: trocar banco, UI ou API sem afetar o domínio; testar o domínio sem infraestrutura.</li>
+        <li>Onde: sistemas corporativos grandes, microsserviços, longa vida útil, regras de negócio complexas.</li>
+        <li>Tecnologias: Spring Boot, Quarkus, Micronaut, NestJS, Adonis, FastAPI, Django customizado, ASP.NET Core. Relacionadas: Clean, Onion, DDD.</li>
+        <li>✅ Máximo desacoplamento, domínio limpo e testável. ❌ Estrutura inicial complexa, <b>“overkill” para sistemas simples</b>, mais camadas, exige disciplina.</li>
+      </ul>
+
+      <h3>Clean Architecture (Uncle Bob)</h3>
+      <p>Criada por <b>Robert C. Martin</b>. Camadas concêntricas, de dentro para fora:</p>
+      <div class="flow"><span>Entities</span><i>←</i><span>Use Cases</span><i>←</i><span>Interface Adapters</span><i>←</i><span>Frameworks &amp; Drivers</span></div>
+      <ul>
+        <li><b>Entities</b>: regras de negócio de alto nível · <b>Use Cases</b>: orquestram a lógica da aplicação · <b>Interface Adapters</b>: DTOs, Presenters, Gateways, Controllers · <b>Frameworks &amp; Drivers</b>: BD, UI, web, mensageria.</li>
+        <li><b>Dependency Rule</b>: dependências <b>só apontam para dentro</b>; o núcleo nunca depende de detalhes (DB, UI, HTTP são “plugins”).</li>
+        <li>✅ Testabilidade máxima, domínio protegido, trocar SQL por NoSQL sem mexer no domínio. ❌ <b>Alto custo inicial</b>, muitos arquivos e interfaces, demais para CRUDs simples.</li>
+      </ul>
+      <div class="callout ok"><span class="ct">✅ Quando usar cada uma</span><b>MVC</b>: sistema simples/CRUD, framework já organizado assim, equipe iniciante. <b>MVVM</b>: UI complexa e reativa (mobile/SPA), alta testabilidade. <b>Hexagonal/Clean</b>: domínio complexo, muitas integrações, independência de infraestrutura, software que vai evoluir por anos.</div>
+      <div class="week-foot"><button class="btn btn-primary practice" data-tema="ar">🎯 Praticar Tópico 5</button><button class="btn" data-go="compare">📊 Ver comparativo</button></div>
+    </div>
+  </details>
+
+  <!-- ---------- TÓPICO 6 ---------- -->
+  <details class="card week" id="t6">
+    <summary><span class="num">6</span><span class="ttl"><b>Testes e TDD</b><small>Objetivos, caixa-branca/preta/cinza, unitário × integração, tipos por propósito, Red-Green-Refactor, xUnit e AAA</small></span></summary>
+    <div class="week-body">
+      <div class="callout"><span class="ct">💡 Ideia central</span>Testar é <b>verificar e validar</b> se o software funciona como esperado, encontrando defeitos <b>antes</b> da entrega e garantindo RF e RNF.</div>
+      <p><b>Objetivos</b>: detectar erros cedo, evitar retrabalho, melhorar a manutenção, aumentar a confiança na entrega.</p>
+
+      <h3>Tipos de teste</h3>
+      <div class="table-wrap"><table class="stack">
+        <thead><tr><th>Tipo</th><th>O que avalia</th><th>Quem / exemplo</th></tr></thead>
+        <tbody>
+          <tr><td>Caixa-branca</td><td>Estrutura interna do código</td><td>Devs · cobertura, caminhos lógicos</td></tr>
+          <tr><td>Caixa-preta</td><td>Funcionalidade, sem ver o código</td><td>Testadores/QA · interface, requisitos</td></tr>
+          <tr><td>Caixa-cinza</td><td>Combinação: conhecimento parcial</td><td>—</td></tr>
+          <tr><td>Unitário</td><td>Partes isoladas (funções, classes)</td><td>Rápido, automatizado, camada própria</td></tr>
+          <tr><td>Integração</td><td>Módulos funcionando juntos</td><td>Arquitetura, desacoplamento</td></tr>
+        </tbody>
+      </table></div>
+      <div class="table-wrap"><table class="stack">
+        <thead><tr><th>Por propósito</th><th>Para quê</th></tr></thead>
+        <tbody>
+          <tr><td>Funcional</td><td>O que o sistema faz</td></tr>
+          <tr><td>Não funcional</td><td>Desempenho, segurança, usabilidade</td></tr>
+          <tr><td>Regressão</td><td>Mudanças novas não quebraram o que funcionava</td></tr>
+          <tr><td>Smoke test</td><td>Checagem rápida de estabilidade</td></tr>
+          <tr><td>Exploratório</td><td>Testador navega livremente buscando falhas</td></tr>
+        </tbody>
+      </table></div>
+
+      <h3>TDD — Test-Driven Development</h3>
+      <p>Escrever os testes automatizados <b>antes</b> do código. O código nasce para passar nos testes; cada funcionalidade começa com um teste que falha.</p>
+      <div class="flow"><span style="color:var(--bad)">🔴 Red: teste que falha</span><i>→</i><span style="color:var(--ok)">🟢 Green: código mínimo</span><i>→</i><span>🔁 Refactor: melhorar mantendo verde</span></div>
+      <div class="pc"><div class="callout ok"><span class="ct">✅ Benefícios</span><ul><li>Qualidade desde o início; menos bugs</li><li>Refatoração segura</li><li>Design mais modular</li><li>Documentação viva</li><li>Menos manutenção, mais confiança</li></ul></div><div class="callout warn"><span class="ct">⚠️ Desafios</span><ul><li>Exige mudança de mentalidade</li><li>Aumenta o tempo inicial</li><li>Difícil testar código mal projetado</li><li>Precisa de boa cobertura</li><li>Nem tudo é testável (ex.: interface gráfica)</li></ul></div></div>
+
+      <h3>Ferramentas</h3>
+      <div class="table-wrap"><table class="stack">
+        <thead><tr><th>Linguagem</th><th>Frameworks</th></tr></thead>
+        <tbody>
+          <tr><td>C#</td><td>xUnit, NUnit, MSTest</td></tr>
+          <tr><td>Java</td><td>JUnit, TestNG</td></tr>
+          <tr><td>Python</td><td>pytest, unittest</td></tr>
+          <tr><td>JavaScript</td><td>Jest, Mocha</td></tr>
+          <tr><td>Ruby</td><td>RSpec</td></tr>
+        </tbody>
+      </table></div>
+      <p><b>xUnit</b>: o mais usado no .NET moderno, integrado ao <code>dotnet test</code>. <code>[Fact]</code> = teste simples; <code>[Theory]</code> = vários casos de entrada.</p>
+
+      <h3>Padrão AAA</h3>
+<pre>[Fact]
+public void Somar_RetornaSoma()
+{
+    // Arrange: preparar
+    var calc = new Calculadora();
+    // Act: executar
+    var r = calc.Somar(2, 3);
+    // Assert: verificar
+    Assert.Equal(5, r);
+}</pre>
+      <p><b>Boas práticas</b>: testes pequenos e independentes, nomes descritivos, automáticos e rápidos, <b>mocks e stubs</b> para dependências externas, TDD integrado ao <b>CI/CD</b>.</p>
+      <div class="callout warn"><span class="ct">⚠️ Pegadinha</span>No Green escreve-se o código <b>mínimo</b>; melhorar é no Refactor. E caixa-<b>branca</b> olha o código por dentro, caixa-<b>preta</b> não.</div>
+      <div class="week-foot"><button class="btn btn-primary practice" data-tema="te">🎯 Praticar Tópico 6</button></div>
+    </div>
+  </details>
+</section>
+
+<!-- ======================= COMPARATIVOS ======================= -->
+<section class="view" id="view-compare">
+  <h2 class="section-title">Comparativos</h2>
+  <p class="lead">As tabelas que mais caem em prova, lado a lado.</p>
+
+  <div class="card">
+    <h3>Modelos de ciclo de vida</h3>
+    <div class="table-wrap"><table class="stack">
+      <thead><tr><th>Modelo</th><th>Ideia</th><th>Use quando</th><th>Ponto fraco</th></tr></thead>
+      <tbody>
+        <tr><td>Cascata</td><td>Fases sequenciais</td><td>Requisitos estáveis, ambiente regulado</td><td>Validação tardia</td></tr>
+        <tr><td>Modelo V</td><td>Cada fase ↔ um teste</td><td>Precisa de V&amp;V rigorosa</td><td>Também pouco flexível</td></tr>
+        <tr><td>Incremental</td><td>Entregas em partes</td><td>Dá para priorizar e entregar aos poucos</td><td>Exige boa divisão do escopo</td></tr>
+        <tr><td>Espiral</td><td>Análise de riscos por ciclo</td><td>Projeto grande e arriscado</td><td>Complexo de gerenciar</td></tr>
+        <tr><td>Prototipagem</td><td>Protótipo antes da especificação</td><td>Requisitos incertos</td><td>Cliente pode achar que está pronto</td></tr>
+        <tr><td>RAD</td><td>Velocidade e protótipos</td><td>Prazo curto</td><td>Menos rigor</td></tr>
+        <tr><td>Software aberto</td><td>Versão inicial + voluntários</td><td>Comunidade open source</td><td>Depende de interesse da comunidade</td></tr>
+        <tr><td>Sincronizar-e-estabilizar</td><td>Equipes paralelas, sync diário</td><td>Pacotes COTS grandes (Microsoft)</td><td>Exige integração disciplinada</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <div class="card" style="margin-top:1rem">
+    <h3>Arquiteturas</h3>
+    <div class="table-wrap"><table class="stack">
+      <thead><tr><th>Arquitetura</th><th>Peça-chave</th><th>Use quando</th><th>Desvantagem</th><th>Exemplos</th></tr></thead>
+      <tbody>
+        <tr><td>MVC</td><td>Controller coordena Model e View</td><td>CRUD, web server-side, equipe iniciante</td><td>God Controllers</td><td>Rails, Laravel, Django, Spring MVC</td></tr>
+        <tr><td>MVVM</td><td>ViewModel + data binding</td><td>UI reativa, mobile, SPA</td><td>Binding dificulta depurar</td><td>Angular, WPF, SwiftUI, Flutter</td></tr>
+        <tr><td>Hexagonal</td><td>Ports e adapters</td><td>Domínio complexo, muitas integrações</td><td>Overkill para o simples</td><td>Spring Boot, Quarkus, NestJS</td></tr>
+        <tr><td>Clean</td><td>Dependency Rule (para dentro)</td><td>Sistemas de longa duração, DDD</td><td>Alto custo inicial</td><td>ASP.NET Core, NestJS, FastAPI</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <div class="card" style="margin-top:1rem">
+    <h3>Scrum × XP × Kanban</h3>
+    <div class="table-wrap"><table class="stack">
+      <thead><tr><th>Critério</th><th>Scrum</th><th>XP</th><th>Kanban</th></tr></thead>
+      <tbody>
+        <tr><td>Foco</td><td>Gestão: papéis, sprints, reuniões</td><td>Práticas técnicas</td><td>Fluxo visual</td></tr>
+        <tr><td>Ciclo</td><td>Sprints de 2–4 semanas</td><td>Incrementos curtos guiados por histórias</td><td>Contínuo</td></tr>
+        <tr><td>Destaques</td><td>PO, SM, backlogs, daily, retrospectiva</td><td>TDD, pares, CI, refatoração, CRC</td><td>Quadro com colunas</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <div class="card" style="margin-top:1rem">
+    <h3>Prescritivo × ágil</h3>
+    <div class="table-wrap"><table class="stack">
+      <thead><tr><th>Critério</th><th>Prescritivo (tradicional)</th><th>Ágil</th></tr></thead>
+      <tbody>
+        <tr><td>Plano</td><td>Planeja tudo antes</td><td>Planeja por iteração</td></tr>
+        <tr><td>Entrega</td><td>No final</td><td>Partes pequenas e frequentes</td></tr>
+        <tr><td>Mudanças</td><td>Difíceis e caras</td><td>Bem-vindas, até no fim</td></tr>
+        <tr><td>Documentação</td><td>Extensa</td><td>Mínima (histórias e testes)</td></tr>
+        <tr><td>Cliente</td><td>No início e no fim</td><td>Durante todo o processo</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <div class="card" style="margin-top:1rem">
+    <h3>Papéis do Scrum</h3>
+    <div class="table-wrap"><table class="stack">
+      <thead><tr><th>Ação</th><th>Quem</th></tr></thead>
+      <tbody>
+        <tr><td>Priorizar o backlog do produto</td><td>Product Owner</td></tr>
+        <tr><td>Definir a meta do sprint</td><td>Product Owner</td></tr>
+        <tr><td>Encerrar ou estender o sprint</td><td>Product Owner (só ele)</td></tr>
+        <tr><td>Conduzir a daily e remover obstáculos</td><td>Scrum Master</td></tr>
+        <tr><td>Liderar a retrospectiva</td><td>Scrum Master</td></tr>
+        <tr><td>Definir como fazer e quando está pronto</td><td>Equipe de desenvolvimento</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+</section>
+
+<!-- ======================= QUIZ ======================= -->
+<section class="view" id="view-quiz">
+  <h2 class="section-title">Quiz</h2>
+  <div id="quiz-setup">
+    <p class="lead">Escolha um conjunto. A resposta e a explicação aparecem assim que você marca. As alternativas são embaralhadas.</p>
+    <div class="options-grid" id="quiz-options"></div>
+  </div>
+  <div id="quiz-area" class="hidden"></div>
+</section>
+
+<!-- ======================= SIMULADO ======================= -->
+<section class="view" id="view-simulado">
+  <h2 class="section-title">Simulado</h2>
+  <div id="sim-setup" class="card">
+    <p>Questões sorteadas, sem mostrar a resposta na hora. No fim você recebe nota (0–10), desempenho por tópico e a correção comentada.</p>
+    <div class="row">
+      <div class="field"><label for="sim-n">Quantidade de questões</label>
+        <select id="sim-n"><option value="10">10 questões</option><option value="20" selected>20 questões</option><option value="30">30 questões</option><option value="50">50 questões</option></select></div>
+      <div class="field"><label for="sim-tema">Conteúdo</label>
+        <select id="sim-tema"><option value="">Todos os tópicos</option></select></div>
+    </div>
+    <button class="btn btn-primary" id="sim-start">▶ Iniciar simulado</button>
+  </div>
+  <div id="sim-area" class="hidden"></div>
+</section>
+
+<!-- ======================= FLASHCARDS ======================= -->
+<section class="view" id="view-flash">
+  <h2 class="section-title">Flashcards</h2>
+  <p class="lead">Tente lembrar a resposta e toque no cartão para conferir. No computador: <code>espaço</code> vira, <code>← →</code> navegam.</p>
+  <div class="flash-wrap">
+    <div class="card flashcard" id="flashcard" role="button" tabindex="0" aria-label="Virar cartão">
+      <span class="side-label" id="flash-side">Pergunta</span>
+      <div class="front" id="flash-front"></div>
+      <div class="back" id="flash-back"></div>
+      <span class="tap">toque para virar</span>
+    </div>
+    <div class="flash-ctrl">
+      <button class="btn" id="flash-prev">← Anterior</button>
+      <span id="flash-count">1 / 1</span>
+      <button class="btn btn-primary" id="flash-next">Próximo →</button>
+    </div>
+    <div class="flash-extra"><button class="btn btn-sm" id="flash-shuffle">🔀 Embaralhar</button></div>
+  </div>
+</section>
+
+<!-- ======================= DISCURSIVAS ======================= -->
+<section class="view" id="view-disc">
+  <h2 class="section-title">Discursivas</h2>
+  <p class="lead">Perguntas abertas de revisão e um exemplo completo do trabalho. Escreva sua resposta (fica salva no navegador), depois compare com a resposta-modelo e marque os pontos-chave que você citou.</p>
+  <div class="callout"><span class="ct">📝 Trabalho (entrega 24/11/2026)</span>Escolha <b>um</b> sistema (Biblioteca, Consultas médicas, Estoque, Hotel ou um open source real) e entregue em PDF: <b>diagrama de casos de uso</b>, <b>diagrama de classes</b>, <b>≥ 5 RF</b>, <b>≥ 3 RNF</b> e um <b>modelo clássico</b> de ciclo de vida (Cascata, Incremental, Prototipagem, V ou Espiral) com justificativa, fases e vantagens. Não precisa implementar código. Use o filtro “Trabalho” para ver um exemplo com a Biblioteca.</div>
+  <div class="chips" id="disc-filter"></div>
+  <div id="disc-list"></div>
+</section>
+
+<!-- ======================= TREINO ======================= -->
+<section class="view" id="view-treino">
+  <h2 class="section-title">Treino rápido</h2>
+  <p class="lead">Leia a frase e escolha a categoria. Serve para fixar as classificações que mais confundem.</p>
+  <div class="chips" id="tr-sets"></div>
+  <div class="card" id="tr-card">
+    <div class="tr-top"><span id="tr-pos"></span><span id="tr-score"></span></div>
+    <div class="qtext" id="tr-q"></div>
+    <div class="tr-opts" id="tr-opts"></div>
+    <div id="tr-explic"></div>
+    <div class="actions" style="margin-top:1rem"><button class="btn btn-primary hidden" id="tr-next" type="button">Próxima →</button></div>
+  </div>
+</section>
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <p class="muted">© <span id="ano">2026</span> Luan Kairo de Souza das Neves · Material de estudo baseado nas aulas do Prof. Jacques Oliveira (Engenharia de Software · Multivix).</p>
+    <p class="muted"><a href="/estudos/engenharia/">Matérias de Engenharia</a> · <a href="/estudos/">Áreas</a> · <a href="https://luan-k10.github.io/">Portfólio</a> · <a href="https://github.com/luan-k10">GitHub</a> · <a href="https://www.linkedin.com/in/luankairo/">LinkedIn</a></p>
+  </div>
+</footer>
+
+<script src="js/data.js"></script>
+<script src="js/app.js"></script>
+<script src="js/treino.js"></script>
+</body>
+</html>
